@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.mobotechnology.bipinpandey.retrofit_handdirty"
+        applicationId "com.mobotechnology.bipinpandey.mvp_retrofit_handdirty"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -31,3 +31,4 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
 }
+

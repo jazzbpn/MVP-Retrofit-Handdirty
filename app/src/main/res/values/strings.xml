@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Retrofit-HandDirty</string>
+    <string name="app_name">MVP-Retrofit</string>
     <string name="action_settings">Settings</string>
 </resources>
