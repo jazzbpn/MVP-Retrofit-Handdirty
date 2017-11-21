@@ -45,7 +45,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.EmployeeVi
         EmployeeViewHolder(View itemView) {
             super(itemView);
             txtNoticeTitle =  itemView.findViewById(R.id.txt_notice_title);
-            txtNoticeBrief =  itemView.findViewById(R.id.txt_notice_description);
+            txtNoticeBrief =  itemView.findViewById(R.id.txt_notice_brief);
             txtNoticeFilePath =  itemView.findViewById(R.id.txt_notice_file_path);
         }
     }

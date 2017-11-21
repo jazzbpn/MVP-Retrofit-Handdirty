@@ -61,9 +61,9 @@ public interface GetNoticeDataService {
 
     /**
      * URL MANIPULATION
-     *  complex query parameter combinations a Map can be used
+     * complex query parameter combinations a Map can be used
      * */
-    @GET("group/{id}/users")
+    @GET("group/{id}/noticelist")
     Call<List<Notice>> groupList(@Path("id") int groupId, @QueryMap Map<String, String> options);
 
 
@@ -73,7 +73,7 @@ public interface GetNoticeDataService {
      * URL MANIPULATION
      * HTTP request body with the @Body annotation
      */
-    @POST("users/new")
+    @POST("notice/new")
     Call<Notice> createNotice(@Body Notice notice);
 
 
@@ -85,7 +85,7 @@ public interface GetNoticeDataService {
      * Each key-value pair is annotated with @Field containing the name and the object providing the value
      * */
     @FormUrlEncoded
-    @POST("user/edit")
+    @POST("notice/edit")
     Call<Notice> updateNotice(@Field("id") String id, @Field("title") String title);
 
 
@@ -108,16 +108,20 @@ public interface GetNoticeDataService {
      * Set static headers for a method using the @Headers annotation.
      * */
     @Headers("Cache-Control: max-age=640000")
-    @GET("widget/list")
+    @GET("notice/list")
     Call<List<Notice>> NoticeList();
 
 
+
+    /**
+     * HEADER MANIPULATION
+     * */
     @Headers({
             "Accept: application/vnd.github.v3.full+json",
             "User-Agent: Retrofit-Sample-App"
     })
-    @GET("users/{username}")
-    Call<Notice> getNotice(@Path("title") String username);
+    @GET("noticelist/{title}")
+    Call<Notice> getNotice(@Path("title") String title);
 
 
 
@@ -129,6 +133,6 @@ public interface GetNoticeDataService {
      * If the value is null, the header will be omitted. Otherwise, toString will be called on the value, and the result used.
      * */
     @GET("notice")
-    Call<Notice> getUser(@Header("Authorization") String authorization);
+    Call<Notice> getNoticeUsingHeader(@Header("Authorization") String authorization);
 
 }
