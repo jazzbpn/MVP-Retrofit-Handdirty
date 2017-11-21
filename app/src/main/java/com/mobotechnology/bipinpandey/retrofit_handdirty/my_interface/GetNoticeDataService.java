@@ -97,7 +97,7 @@ public interface GetNoticeDataService {
      * Parts are declared using the @Part annotation.
      * */
     @Multipart
-    @PUT("user/photo")
+    @PUT("notice/photo")
     Call<Notice> updateNotice(@Part("photo") RequestBody photo, @Part("description") RequestBody description);
 
 
