@@ -129,6 +129,6 @@ public interface GetNoticeDataService {
      * If the value is null, the header will be omitted. Otherwise, toString will be called on the value, and the result used.
      * */
     @GET("notice")
-    Call<Notice> getUser(@Header("Authorization") String authorization)
+    Call<Notice> getUser(@Header("Authorization") String authorization);
 
 }
