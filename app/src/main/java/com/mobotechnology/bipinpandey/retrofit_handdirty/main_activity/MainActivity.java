@@ -72,6 +72,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         this.addContentView(relativeLayout, params);
     }
 
+    /**
+     * RecyclerItem click event listener
+     * */
+    private RecyclerItemClickListener recyclerItemClickListener = new RecyclerItemClickListener() {
+        @Override
+        public void onItemClick(Notice notice) {
+
+            Toast.makeText(MainActivity.this,
+                    "List title:  " + notice.getTitle(),
+                    Toast.LENGTH_LONG).show();
+
+        }
+    };
+
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
@@ -125,17 +139,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         return super.onOptionsItemSelected(item);
     }
-
-    private RecyclerItemClickListener recyclerItemClickListener = new RecyclerItemClickListener() {
-        @Override
-        public void onItemClick(Notice notice) {
-
-            Toast.makeText(MainActivity.this,
-                    "List title:  " + notice.getTitle(),
-                    Toast.LENGTH_LONG).show();
-
-        }
-    };
 
 }
 

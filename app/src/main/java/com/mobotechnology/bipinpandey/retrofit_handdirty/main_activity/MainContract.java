@@ -24,7 +24,7 @@ public interface MainContract {
 
     /**
      * showProgress() and hideProgress() would be used for displaying and hiding the progressBar
-     * while the next random quote is fetched from the GetQuoteInteractorImpl class
+     * while the setDataToRecyclerView and onResponseFailure is fetched from the GetNoticeInteractorImpl class
      **/
     interface MainView {
 
