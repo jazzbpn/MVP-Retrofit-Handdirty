@@ -1,7 +1,6 @@
 package com.mobotechnology.bipinpandey.retrofit_handdirty.main_activity;
 
 import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
-
 import java.util.ArrayList;
 
 /**
@@ -36,6 +35,7 @@ public interface MainContract {
         void setDataToRecyclerView(ArrayList<Notice> noticeArrayList);
 
         void onResponseFailure(Throwable throwable);
+
     }
 
     /**

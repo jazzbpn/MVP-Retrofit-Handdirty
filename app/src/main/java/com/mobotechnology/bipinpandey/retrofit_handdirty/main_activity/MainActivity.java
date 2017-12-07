@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
+
     }
 
     /**
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     @Override
     public void setDataToRecyclerView(ArrayList<Notice> noticeArrayList) {
 
-        NoticeAdapter adapter = new NoticeAdapter(noticeArrayList);
+        NoticeAdapter adapter = new NoticeAdapter(noticeArrayList , recyclerItemClickListener);
         recyclerView.setAdapter(adapter);
 
     }
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
                 "Something went wrong...Error message: " + throwable.getMessage(),
                 Toast.LENGTH_LONG).show();
     }
+
 
     @Override
     protected void onDestroy() {
@@ -123,4 +125,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         return super.onOptionsItemSelected(item);
     }
+
+    private RecyclerItemClickListener recyclerItemClickListener = new RecyclerItemClickListener() {
+        @Override
+        public void onItemClick(Notice notice) {
+
+            Toast.makeText(MainActivity.this,
+                    "List title:  " + notice.getTitle(),
+                    Toast.LENGTH_LONG).show();
+
+        }
+    };
+
 }
+

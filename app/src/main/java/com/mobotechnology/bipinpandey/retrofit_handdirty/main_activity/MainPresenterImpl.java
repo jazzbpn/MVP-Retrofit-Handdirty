@@ -40,6 +40,7 @@ public class MainPresenterImpl implements MainContract.presenter, MainContract.G
         getNoticeIntractor.getNoticeArrayList(this);
     }
 
+
     @Override
     public void onFinished(ArrayList<Notice> noticeArrayList) {
         if(mainView != null){
