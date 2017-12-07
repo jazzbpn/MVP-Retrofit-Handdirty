@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mobotechnology.bipinpandey.retrofit_handdirty.R;
 import com.mobotechnology.bipinpandey.retrofit_handdirty.adapter.NoticeAdapter;
@@ -18,11 +19,10 @@ import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MainContract.MainView{
+public class MainActivity extends AppCompatActivity implements MainContract.MainView {
 
-    private NoticeAdapter adapter;
-    private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private RecyclerView recyclerView;
 
     private MainContract.presenter presenter;
 
@@ -30,54 +30,32 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initializeToolbarAndRecyclerView();
         initProgressBar();
 
 
-        presenter = new MainPresenterImpl(this , new GetNoticeIntractorImpl());
+        presenter = new MainPresenterImpl(this, new GetNoticeIntractorImpl());
         presenter.requestDataFromServer();
 
-
-//        /** Create handle for the RetrofitInstance interface*/
-//        GetNoticeDataService service = RetrofitInstance.getRetrofitInstance().create(GetNoticeDataService.class);
-//
-//        /** Call the method with parameter in the interface to get the notice data*/
-//        Call<NoticeList> call = service.getNoticeData();
-//
-//        /**Log the URL called*/
-//        Log.wtf("URL Called", call.request().url() + "");
-//
-//        call.enqueue(new Callback<NoticeList>() {
-//            @Override
-//            public void onResponse(Call<NoticeList> call, Response<NoticeList> response) {
-//                generateNoticeList(response.body().getNoticeArrayList());
-//                progressBar.setVisibility(View.INVISIBLE);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NoticeList> call, Throwable t) {
-//                Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.INVISIBLE);
-//            }
-//        });
     }
 
     /**
-     * Method to generate List of notice using RecyclerView with custom adapter
+     * Initializing Toolbar and RecyclerView
      */
-    private void generateNoticeList(ArrayList<Notice> noticeDataList) {
+    private void initializeToolbarAndRecyclerView() {
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         recyclerView = findViewById(R.id.recycler_view_employee_list);
-
-        adapter = new NoticeAdapter(noticeDataList);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Initializing progressbar programmatically
+     * */
     private void initProgressBar() {
         progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
@@ -104,8 +82,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
     }
 
     @Override
-    public void setDataList(ArrayList<Notice> noticeArrayList) {
-        generateNoticeList(noticeArrayList);
+    public void setDataToRecyclerView(ArrayList<Notice> noticeArrayList) {
+
+        NoticeAdapter adapter = new NoticeAdapter(noticeArrayList);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onResponseFailure(Throwable throwable) {
+        Toast.makeText(MainActivity.this,
+                "Something went wrong...Error message: " + throwable.getMessage(),
+                Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -33,17 +33,19 @@ public interface MainContract {
 
         void hideProgress();
 
-        void setDataList(ArrayList<Notice> noticeArrayList);
+        void setDataToRecyclerView(ArrayList<Notice> noticeArrayList);
 
+        void onResponseFailure(Throwable throwable);
     }
 
     /**
-     * Interactors are classes built for fetching data from your database, web services, or any other data source.
+     * Intractors are classes built for fetching data from your database, web services, or any other data source.
      **/
-    interface GetNoticeInteractor {
+    interface GetNoticeIntractor {
 
         interface OnFinishedListener {
             void onFinished(ArrayList<Notice> noticeArrayList);
+            void onFailure(Throwable t);
         }
 
         void getNoticeArrayList(OnFinishedListener onFinishedListener);

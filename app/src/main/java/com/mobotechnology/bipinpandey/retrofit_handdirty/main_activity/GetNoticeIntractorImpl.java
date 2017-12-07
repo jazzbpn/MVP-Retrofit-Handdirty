@@ -1,41 +1,47 @@
 package com.mobotechnology.bipinpandey.retrofit_handdirty.main_activity;
 
-import android.os.Handler;
+import android.util.Log;
 
-import com.mobotechnology.bipinpandey.retrofit_handdirty.model.Notice;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.model.NoticeList;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.my_interface.GetNoticeDataService;
+import com.mobotechnology.bipinpandey.retrofit_handdirty.network.RetrofitInstance;
 
-import java.util.ArrayList;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by bpn on 12/7/17.
  */
 
-public class GetNoticeIntractorImpl implements MainContract.GetNoticeInteractor{
-
-    private ArrayList<Notice> noticeArrayList = new ArrayList<>();
-
+public class GetNoticeIntractorImpl implements MainContract.GetNoticeIntractor {
 
     @Override
     public void getNoticeArrayList(final OnFinishedListener onFinishedListener) {
 
-        new Handler().postDelayed(new Runnable() {
+
+        /** Create handle for the RetrofitInstance interface*/
+        GetNoticeDataService service = RetrofitInstance.getRetrofitInstance().create(GetNoticeDataService.class);
+
+        /** Call the method with parameter in the interface to get the notice data*/
+        Call<NoticeList> call = service.getNoticeData();
+
+        /**Log the URL called*/
+        Log.wtf("URL Called", call.request().url() + "");
+
+        call.enqueue(new Callback<NoticeList>() {
             @Override
-            public void run() {
-                onFinishedListener.onFinished(setNoticeArrayList());
+            public void onResponse(Call<NoticeList> call, Response<NoticeList> response) {
+                onFinishedListener.onFinished(response.body().getNoticeArrayList());
+
             }
-        }, 1200);
+
+            @Override
+            public void onFailure(Call<NoticeList> call, Throwable t) {
+                onFinishedListener.onFailure(t);
+            }
+        });
 
     }
 
-    private ArrayList<Notice> setNoticeArrayList(){
-
-        noticeArrayList.clear();
-        noticeArrayList.add(new Notice("1" , "Some title 1" , "Try to learn MVP-HandDirty 1" , "http://google.com"));
-        noticeArrayList.add(new Notice("2" , "Some title 2" , "Try to learn MVP-HandDirty 1" , "http://google.com"));
-        noticeArrayList.add(new Notice("3" , "Some title 3" , "Try to learn MVP-HandDirty 1" , "http://google.com"));
-        noticeArrayList.add(new Notice("4" , "Some title 4" , "Try to learn MVP-HandDirty 1" , "http://google.com"));
-        noticeArrayList.add(new Notice("5" , "Some title 5" , "Try to learn MVP-HandDirty 1" , "http://google.com"));
-
-        return noticeArrayList;
-    }
 }

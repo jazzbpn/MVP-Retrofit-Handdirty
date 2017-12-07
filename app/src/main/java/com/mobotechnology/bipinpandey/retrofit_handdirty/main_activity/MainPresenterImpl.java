@@ -8,14 +8,14 @@ import java.util.ArrayList;
  * Created by bpn on 12/7/17.
  */
 
-public class MainPresenterImpl implements MainContract.presenter, MainContract.GetNoticeInteractor.OnFinishedListener {
+public class MainPresenterImpl implements MainContract.presenter, MainContract.GetNoticeIntractor.OnFinishedListener {
 
     private MainContract.MainView mainView;
-    private MainContract.GetNoticeInteractor getNoticeInteractor;
+    private MainContract.GetNoticeIntractor getNoticeIntractor;
 
-    public MainPresenterImpl(MainContract.MainView mainView, MainContract.GetNoticeInteractor getNoticeInteractor) {
+    public MainPresenterImpl(MainContract.MainView mainView, MainContract.GetNoticeIntractor getNoticeIntractor) {
         this.mainView = mainView;
-        this.getNoticeInteractor = getNoticeInteractor;
+        this.getNoticeIntractor = getNoticeIntractor;
     }
 
     @Override
@@ -31,19 +31,27 @@ public class MainPresenterImpl implements MainContract.presenter, MainContract.G
         if(mainView != null){
             mainView.showProgress();
         }
-        getNoticeInteractor.getNoticeArrayList(this);
+        getNoticeIntractor.getNoticeArrayList(this);
 
     }
 
     @Override
     public void requestDataFromServer() {
-        getNoticeInteractor.getNoticeArrayList(this);
+        getNoticeIntractor.getNoticeArrayList(this);
     }
 
     @Override
     public void onFinished(ArrayList<Notice> noticeArrayList) {
         if(mainView != null){
-            mainView.setDataList(noticeArrayList);
+            mainView.setDataToRecyclerView(noticeArrayList);
+            mainView.hideProgress();
+        }
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        if(mainView != null){
+            mainView.onResponseFailure(t);
             mainView.hideProgress();
         }
     }
