@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
     }
 
+
     /**
      * Initializing Toolbar and RecyclerView
      */
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
 
     }
+
 
     /**
      * Initializing progressbar programmatically
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         this.addContentView(relativeLayout, params);
     }
 
+
     /**
      * RecyclerItem click event listener
      * */
@@ -86,15 +89,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         }
     };
 
+
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.INVISIBLE);
     }
+
 
     @Override
     public void setDataToRecyclerView(ArrayList<Notice> noticeArrayList) {
@@ -118,12 +124,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         presenter.onDestroy();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
 
